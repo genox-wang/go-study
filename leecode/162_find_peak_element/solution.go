@@ -1,4 +1,4 @@
-package _52_find_peak_element
+package _62_find_peak_element
 
 /**
 峰值元素是指其值严格大于左右相邻值的元素。
@@ -11,5 +11,19 @@ package _52_find_peak_element
 */
 
 func findPeakElement(nums []int) int {
-
+	n := len(nums)
+	left, right := 0, n-1
+	for left < right {
+		mid := left + (right-left)/2
+		if (mid-1 < 0 || nums[mid] > nums[mid-1]) &&
+			nums[mid] > nums[mid+1] {
+			return mid
+		}
+		if nums[mid] < nums[mid+1] {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	return left
 }

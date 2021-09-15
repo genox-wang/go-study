@@ -17,7 +17,7 @@ func Test_pancakeSort(t *testing.T) {
 		{
 			"test case 1",
 			args{[]int{3, 2, 4, 1}},
-			[]int{4, 2, 4, 3},
+			[]int{3, 4, 2, 3, 1, 2},
 		}, {
 			"test case 2",
 			args{[]int{1, 2, 3}},

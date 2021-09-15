@@ -1,4 +1,4 @@
-package _52_find_peak_element
+package _62_find_peak_element
 
 import "testing"
 
@@ -18,7 +18,7 @@ func Test_findPeakElement(t *testing.T) {
 		}, {
 			"test case 2",
 			args{[]int{1, 2, 1, 3, 5, 6, 4}},
-			1,
+			5,
 		},
 	}
 	for _, tt := range tests {

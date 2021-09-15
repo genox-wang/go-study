@@ -13,5 +13,35 @@ package _69_pancake_sorting
 */
 
 func pancakeSort(arr []int) []int {
-
+	var res []int
+	reverse := func(arr []int, k int) {
+		i, j := 0, k
+		for i < j {
+			arr[i], arr[j] = arr[j], arr[i]
+			i, j = i+1, j-1
+		}
+	}
+	type sortFunc func(arr []int, k int)
+	var sort sortFunc
+	sort = func(arr []int, k int) {
+		if k == 1 {
+			return
+		}
+		maxV, maxI := 0, 0
+		for i := 0; i < k; i++ {
+			if arr[i] > maxV {
+				maxV = arr[i]
+				maxI = i
+			}
+		}
+		if maxI < k-1 {
+			reverse(arr, maxI)
+			res = append(res, maxI+1)
+			reverse(arr, k-1)
+			res = append(res, k)
+		}
+		sort(arr, k-1)
+	}
+	sort(arr, len(arr))
+	return res
 }
