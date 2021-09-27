@@ -6,27 +6,23 @@ package _83_delete_operate_for_two_strings
 */
 
 func minDistance(word1 string, word2 string) int {
-	lcs := longestCommonSequence(word1, word2)
-	return len(word1) + len(word2) - 2*lcs
-}
-
-func longestCommonSequence(s1 string, s2 string) int {
-	n1 := len(s1)
-	n2 := len(s2)
-	dp := make([]int, n2+1)
-	for i := 1; i <= n1; i++ {
-		pre := 0
-		for j := 1; j <= n2; j++ {
-			tmp := dp[j]
-			if s1[i-1] == s2[j-1] {
-				dp[j] = pre + 1
+	n1 := len(word1)
+	n2 := len(word2)
+	dp := make([][]int, n1+1)
+	for i := range dp {
+		dp[i] = make([]int, n2+1)
+	}
+	for i := 1; i < n1+1; i++ {
+		for j := 1; j < n2+1; j++ {
+			if word1[i-1] == word2[j-1] {
+				dp[i][j] = dp[i-1][j-1] + 1
 			} else {
-				dp[j] = max(dp[j-1], dp[j])
+				dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 			}
-			pre = tmp
 		}
 	}
-	return dp[n2]
+	lcs := dp[n1][n2]
+	return len(word1) + len(word2) - 2*lcs
 }
 
 func max(a, b int) int {
