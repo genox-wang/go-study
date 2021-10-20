@@ -1,0 +1,9 @@
+syntax = "proto3";
+option go_package = "/proto_msg";
+
+package proto_msg;
+
+message Message {
+  string jobId = 1;
+  bool sentOnce = 2;
+}

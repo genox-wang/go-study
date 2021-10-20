@@ -7,4 +7,5 @@ require (
 	github.com/onsi/ginkgo v1.16.5
 	github.com/onsi/gomega v1.16.0
 	golang.org/x/mod v0.5.1
+	google.golang.org/protobuf v1.26.0
 )
