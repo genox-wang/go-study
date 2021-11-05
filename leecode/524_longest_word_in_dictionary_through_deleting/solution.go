@@ -1,6 +1,8 @@
 package _24_longest_word_in_dictionary_through_deleting
 
 /**
+524. 通过删除字母匹配到字典里最长单词
+
 给你一个字符串 s 和一个字符串数组 dictionary 作为字典，找出并返回字典中最长的字符串，
 该字符串可以通过删除 s 中的某些字符得到。
 

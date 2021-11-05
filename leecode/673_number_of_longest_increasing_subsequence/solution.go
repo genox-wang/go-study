@@ -1,6 +1,8 @@
 package _73_number_of_longest_increasing_subsequence
 
 /**
+673. 最长递增子序列的个数
+
 给定一个未排序的整数数组，找到最长递增子序列的个数。
 */
 

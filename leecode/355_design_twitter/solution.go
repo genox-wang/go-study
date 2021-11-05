@@ -16,7 +16,6 @@ type Twitter struct {
 	idToFollows map[int]map[int]bool
 }
 
-// Constructor /** Initialize your data structure here. */
 func Constructor() Twitter {
 	return Twitter{
 		posts:       make([]int, 0),
@@ -25,7 +24,6 @@ func Constructor() Twitter {
 	}
 }
 
-// PostTweet /** Compose a new tweet. */
 func (t *Twitter) PostTweet(userId int, tweetId int) {
 	t.posts = append(t.posts, tweetId)
 	if _, ok := t.idToPosts[userId]; !ok {
@@ -34,7 +32,6 @@ func (t *Twitter) PostTweet(userId int, tweetId int) {
 	t.idToPosts[userId] = append(t.idToPosts[userId], tweetId)
 }
 
-// GetNewsFeed /** Retrieve the 10 most recent tweet ids in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user herself. Tweets must be ordered from most recent to least recent. */
 func (t *Twitter) GetNewsFeed(userId int) []int {
 	postIds := map[int]bool{}
 	if _, ok := t.idToPosts[userId]; ok {
@@ -62,7 +59,6 @@ func (t *Twitter) GetNewsFeed(userId int) []int {
 	return ps
 }
 
-// Follow /** Follower follows a followee. If the operation is invalid, it should be a no-op. */
 func (t *Twitter) Follow(followerId int, followeeId int) {
 	if _, ok := t.idToFollows[followerId]; !ok {
 		t.idToFollows[followerId] = map[int]bool{}
@@ -70,7 +66,6 @@ func (t *Twitter) Follow(followerId int, followeeId int) {
 	t.idToFollows[followerId][followeeId] = true
 }
 
-// Unfollow /** Follower unfollows a followee. If the operation is invalid, it should be a no-op. */
 func (t *Twitter) Unfollow(followerId int, followeeId int) {
 	if _, ok := t.idToFollows[followerId]; ok {
 		delete(t.idToFollows[followerId], followeeId)
