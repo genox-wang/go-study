@@ -22,9 +22,11 @@ func findNthDigit(n int) int {
 
 func pow(a, b int) int {
 	res := 1
-	for b > 0 {
-		b--
-		res *= a
+	for ; b > 0; b /= 2 {
+		if b&1 > 0 {
+			res = a * res
+		}
+		a *= a
 	}
 	return res
 }

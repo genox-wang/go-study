@@ -16,8 +16,12 @@ package _034_coloring_a_border
 请你使用指定颜色 color 为所有包含网格块 grid[row][col] 的 连通分量的边界 进行着色，并返回最终的网格 grid 。
 */
 
-func colorBorder(grid [][]int, row int, col int, color int) [][]int {
+func colorBorder(grid [][]int, row, col, color int) [][]int {
 	m, n := len(grid), len(grid[0])
+	visited := make([][]bool, m)
+	for i := range visited {
+		visited[i] = make([]bool, n)
+	}
 	ans := make([][]int, m)
 	for i := range ans {
 		ans[i] = make([]int, n)
@@ -25,28 +29,23 @@ func colorBorder(grid [][]int, row int, col int, color int) [][]int {
 			ans[i][j] = grid[i][j]
 		}
 	}
-	visited := make([][]bool, m)
-	for i := range visited {
-		visited[i] = make([]bool, n)
-	}
-	visited[row][col] = true
-	dirs := [][]int{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}
+	dirs := [][]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
 	var dfs func(x, y int)
 	dfs = func(x, y int) {
 		visited[x][y] = true
-		if x == 0 || x == m-1 || y == 0 || y == n-1 {
-			ans[x][y] = color
-		}
-		for _, d := range dirs {
-			nx, ny := x+d[0], y+d[1]
-			if nx >= 0 && nx < m && ny >= 0 && ny < n {
-				if !visited[nx][ny] && grid[nx][ny] == grid[x][y] {
+		cnt := 0
+		for _, dir := range dirs {
+			nx, ny := x+dir[0], y+dir[1]
+			if nx >= 0 && nx < m && ny >= 0 && ny < n &&
+				grid[x][y] == grid[nx][ny] {
+				cnt++
+				if !visited[nx][ny] {
 					dfs(nx, ny)
 				}
-				if grid[nx][ny] != grid[x][y] {
-					ans[x][y] = color
-				}
 			}
+		}
+		if cnt != 4 {
+			ans[x][y] = color
 		}
 	}
 	dfs(row, col)
