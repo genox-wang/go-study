@@ -12,26 +12,31 @@ package _07_max_increase_to_keep_city_skyline
 
 func maxIncreaseKeepingSkyline(grid [][]int) (ans int) {
 	m, n := len(grid), len(grid[0])
-	skylineH := make([]int, n)
-	skylineV := make([]int, m)
-	for i, g := range grid {
-		for j, h := range g {
-			if skylineV[i] < h {
-				skylineV[i] = h
-			}
-			if skylineH[j] < h {
-				skylineH[j] = h
-			}
+	v, h := make([]int, m), make([]int, n)
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			v[i] = max(v[i], grid[i][j])
+			h[j] = max(h[j], grid[i][j])
 		}
 	}
-	for i, g := range grid {
-		for j, h := range g {
-			maxHeight := skylineV[i]
-			if maxHeight > skylineH[j] {
-				maxHeight = skylineH[j]
-			}
-			ans += maxHeight - h
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			ans += min(v[i], h[j]) - grid[i][j]
 		}
 	}
 	return
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
